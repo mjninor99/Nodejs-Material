@@ -1,37 +1,39 @@
-CREATE DATABASE database_links;
+CREATE DATABASE dbp_sites;
 
-USE database_links;
+USE dbp_sites;
 
-CREATE TABLE users(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    username VARCHAR(16) NOT NULL,
-    password VARCHAR(60) NOT NULL,
-    fullname VARCHAR(100) NOT NULL, 
-    PRIMARY KEY (id)
+CREATE TABLE tbl_users(
+    PKUSE_NCODIGO int not null auto_increment primary key,
+    USE_CDOCUMENT varchar(255) DEFAULT NULL,
+    USE_CNAME varchar(255) DEFAULT NULL,
+    USE_CLAST_NAME varchar(255) DEFAULT NULL,
+    USE_CUSERNAME varchar(255) DEFAULT NULL,
+    USE_CPASSWORD varchar(255) DEFAULT NULL,
+    USE_CREGISTRATION_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 )
 
-CREATE TABLE links(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    title VARCHAR(150) NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    description TEXT,
-    user_id INT(11),
-    created_at timestamp NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
-    PRIMARY KEY (id)
+CREATE TABLE tbl_sites(
+    PKSIT_NCODIGO int not null auto_increment primary key,
+    FKSIT_CUSER int not null,
+    FKSIT_CUSER_EDIT int not null,
+    SIT_CNAME varchar(255) DEFAULT NULL,
+    SIT_CDESCRIPTION varchar(255) DEFAULT NULL,
+    SIT_CIMGSOURCE varchar(255) DEFAULT NULL,
+    SIT_CREGISTRATION_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    SIT_CMODIFIED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    SIT_CESTADO varchar(255) DEFAULT NULL,
+    constraint FKSIT_TBLUSER foreign key (FKSIT_CUSER) REFERENCES tbl_users(PKUSE_NCODIGO)
+    constraint FKSIT_TBLUSER_EDIT foreign key (FKSIT_CUSER_EDIT) REFERENCES tbl_users(PKUSE_NCODIGO)
 );
 
-CREATE TABLE associated(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL,
-    phone VARCHAR(15) NOT NULL, 
-    email VARCHAR(20) NOT NULL,
-    country VARCHAR(50) NOT NULL, 
-    city VARCHAR(50) NOT NULL, 
-    username VARCHAR NOT NULL, 
-    password VARCHAR(60) NOT NULL,
-    user_id INT(11),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
-    PRIMARY KEY (id)
+CREATE TABLE tbl_associates(
+    PKASS_NCODIGO int not null auto_increment primary key,
+    FKASS_CUSER int not null,
+    ASS_CNAME varchar(255) DEFAULT NULL,
+    ASS_CLAST_NAME varchar(255) DEFAULT NULL,
+    ASS_CREGISTRATION_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ASS_CMODIFIED_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    ASS_CESTADO varchar(255) DEFAULT NULL,
+    constraint FKASS_TBLUSER foreign key (FKASS_CUSER) REFERENCES tbl_users(PKUSE_NCODIGO)
 )
 

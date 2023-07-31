@@ -1,0 +1,166 @@
+<div class="row">
+    <div class="col s9 offset-s2">
+        <div class="col s12 ">
+            <div class="container">
+                <div class="section mt-2" id="blog-list">
+                    <div class="row">
+                        <!-- Fashion Card -->
+                        {{#each sites}}
+                        <div class="col s12 m6 l4">
+                            <div class="card-panel border-radius-6 mt-10">
+                                <img class="responsive-img border-radius-8 z-depth-4 image-n-margin"
+                                    src="{{SIT_CIMGSOURCE}}">
+                                <div class="display-flex justify-content-between flex-wrap mt-5 mb-5">
+                                    <div class="display-flex align-items-center mt-1">
+                                        <h6 class="deep-purple-text text-darken-3 mt-5">{{SIT_CNAME}}</h6>
+                                    </div>
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="material-icons">
+                                            <a class="waves-effect waves-light modal-trigger"
+                                                href="#modal_{{PKSIT_NCODIGO}}">
+                                                edit
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <span>{{SIT_CDESCRIPTION}}</span>
+                                <div class="display-flex justify-content-between flex-wrap mt-4">
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="pt-2">Estado: </span>
+                                    </div>
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="pt-2 grey-text date">{{SIT_CESTADO}}</span>
+                                    </div>
+                                </div>
+                                <div class="display-flex justify-content-between flex-wrap mt-4">
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="pt-2">Creado por: {{UserFirstName}} {{UserLastName}}</span>
+                                    </div>
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="pt-2 grey-text date">{{timeago SIT_CREGISTRATION_DATE}}</span>
+                                    </div>
+                                </div>
+                                <div class="display-flex justify-content-between flex-wrap">
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="pt-2">Edición: {{UserEditFirstName}} {{UserEditLastName}}</span>
+                                    </div>
+                                    <div class="display-flex align-items-center mt-1">
+                                        <span class="pt-2 grey-text date">{{timeago SIT_CMODIFIED_DATE}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="modal_{{PKSIT_NCODIGO}}" class="modal">
+                            <div class="modal-content">
+                                <h4>Editar sitio</h4>
+                                <form class="login-form" action="/sites/list/edit/{{PKSIT_NCODIGO}}" method="POST">
+                                    <div class="row margin">
+                                        <div class="input-field col s12">
+                                            <input id="username" type="text" name="name" value="{{SIT_CNAME}}">
+                                            <label for="username" class="center-align">Nombre</label>
+                                        </div>
+                                    </div>
+                                    <div class="row margin">
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea2" class="materialize-textarea" name="description">{{SIT_CDESCRIPTION}}</textarea>
+                                            <label for="textarea2">Descripción</label>
+                                        </div>
+                                    </div>
+                                    <div class="row margin">
+                                        <div class="input-field col s12">
+                                            <textarea id="textarea3" class="materialize-textarea" name="url">{{SIT_CIMGSOURCE}}</textarea>
+                                            <label for="textarea3">Imagen</label>
+                                        </div>
+                                    </div>
+                                    <div class="row margin">
+                                        <div class="input-field col s12">
+                                            <select name="state">
+                                                <option selected>{{SIT_CESTADO}}</option>
+                                                <option value="ACTIVO">ACTIVO</option>
+                                                <option value="INACTIVO">INACTIVO</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="row center">
+                                        <div class="input-field col s4 offset-s5 center-align">
+                                            <button type="submit"
+                                                class="btn waves-effect waves-light border-round gradient-45deg-indigo-purple shadow col s6">Actualizar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!"
+                                    class="modal-action modal-close waves-effect waves-red btn-flat ">Cancelar</a>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Edit -->
+
+    </div>
+
+    <!-- Button to trigger the "Agregar nuevo sitio" modal -->
+    <div class="col s9 offset-s6">
+        <button data-target="modal2" class="btn modal-trigger deep-purple darken-1">Nuevo sitio</button>
+    </div>
+
+    <!-- Modal for Add -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Agregar nuevo sitio</h4>
+            <form class="login-form" action="/sites/add" method="POST">
+                <div class="row margin">
+                    <div class="input-field col s12">
+                        <input id="username" type="text" name="name">
+                        <label for="username" class="center-align">Nombre</label>
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                        <textarea id="textarea2" class="materialize-textarea" name="description"></textarea>
+                        <label for="textarea2">Descripción</label>
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                        <textarea id="textarea2" class="materialize-textarea" name="url"></textarea>
+                        <label for="textarea2">Imagen</label>
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="input-field col s4 offset-s5 center-align">
+                        <button type="submit"
+                            class="btn waves-effect waves-light border-round gradient-45deg-indigo-purple shadow col s6">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancelar</a>
+        </div>
+    </div>
+</div>
+
+<!-- Script to initialize modals -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+
+        // Attach event listener to trigger links to dynamically set the correct modal ID
+        var modalTriggers = document.querySelectorAll('.modal-trigger');
+        modalTriggers.forEach(function (trigger) {
+            trigger.addEventListener('click', function () {
+                var targetModalId = trigger.getAttribute('href').slice(1); // Remove the '#' from the href
+                var modal = document.getElementById(targetModalId);
+                M.Modal.getInstance(modal).open();
+            });
+        });
+    });
+</script>

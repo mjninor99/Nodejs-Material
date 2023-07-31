@@ -1,45 +1,172 @@
-<div class="container p-4">
-    <div class="card">
-        <div class="card-header custom-header-table">
-            <h3>Associates list</h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                    <thead class="thead-light small">
-                        <tr>
-                            <th scope="col">Id number</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Residency</th>
-                            <th scope="col">Username</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each associates}}
-                        <tr>
-                            <th>{{id}}</th>
-                            <td>{{name}}</td>
-                            <td>{{phone}}</td>
-                            <td>{{city}}, {{country}}</td>
-                            <td>{{username}}</td>
-                            <td>
-                                <a href="/associates/delete/{{id}}" class="btn btn-link btn-sm">
-                                    <i class="fas fa-trash text-danger"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="/associates/edit/{{id}}" class="btn btn-link btn-sm text-secondary">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+<!-- HTML -->
+<div class="row">
+    <div class="col s9 offset-s2">
+        <div class="row">
+            <div class="content-wrapper-before blue-grey lighten-5"></div>
+            <div class="col s12">
+                <div class="container">
+                    <div class="section">
+                        <div class="row">
+                            <div class="col s12 m6 l4">
+                                <div class="card padding-4 animate fadeLeft">
+                                    <div class="row">
+                                        <div class="col s5 m5">
+                                            <h5 class="mb-0">{{totalAssociates}}</h5>
+                                            <p class="mb-0">Total Associados</p>
+                                        </div>
+                                        <div class="col s7 m7 right-align">
+                                            <i
+                                                class="material-icons background-round mt-5 mb-5 gradient-45deg-purple-amber gradient-shadow white-text">perm_identity</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="chartjs" class="card pt-0 pb-0 animate fadeLeft">
+                                    <!-- Contenido del gráfico -->
+                                </div>
+                                <div class="card pt-0 pb-0 animate fadeLeft">
+                                    <button data-target="modaladd"
+                                        class="btn modal-trigger gradient-45deg-purple-amber gradient-shadow white-text darken-1 waves-effect waves-light btn-block">Nuevo
+                                        Asociado</button>
+                                </div>
+                            </div>
+                            <div class="col s12 m6 l8">
+                                <div class="card subscriber-list-card animate fadeRight">
+                                    <div class="card-content pb-1">
+                                        <h4 class="card-title mb-0">Lista de asociados</h4>
+                                    </div>
+                                    <table class="subscription-table responsive-table highlight">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>Fecha de inicio</th>
+                                                <th>Fecha de modificación</th>
+                                                <th>Estado</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Ciclo para mostrar la lista de asociados -->
+                                            {{#each associates}}
+                                            <tr>
+                                                <td>{{ASS_CNAME}}</td>
+                                                <td>{{ASS_CLAST_NAME}}</td>
+                                                <td>{{timeago ASS_CREGISTRATION_DATE}}</td>
+                                                <td>{{timeago ASS_CMODIFIED_DATE}}</td>
+                                                <td><span
+                                                        class="badge orange lighten-5 orange-text text-accent-4">{{ASS_CESTADO}}</span>
+                                                </td>
+                                                <td class="center-align"><a href="/associates/edit/{{PKASS_NCODIGO}}"><i
+                                                            class="material-icons pink-text">edit</i></a></td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                    <!-- Fin del ciclo -->
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="content-overlay"></div>
             </div>
+            
         </div>
     </div>
 </div>
+
+
+<div id="modaledit_{{PKASS_NCODIGO}}" class="modal">
+    <div class="modal-content">
+        <h4>Editar asociado</h4>
+        <form class="login-form" action="/associates/list/edit/{{PKASS_NCODIGO}}" method="POST">
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <input id="username" type="text" name="name" value="{{ASS_CNAME}}">
+                    <label for="username" class="center-align">Nombre</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <input id="username" type="text" name="lastName" value="{{ASS_CLAST_NAME}}">
+                    <label for="username" class="center-align">Apellido</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12" name="state">
+                    <select>
+                        <option selected>{{ASS}}</option>
+                        <option value="ACTIVO">ACTIVO</option>
+                        <option value="INACTIVO">INACTIVO</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row center">
+                <div class="input-field col s4 offset-s5 center-align">
+                    <button type="submit"
+                        class="btn waves-effect waves-light border-round gradient-45deg-purple-amber gradient-shadow white-text col s6">Actualizar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancelar</a>
+    </div>
+</div>
+<!-- Modal para Agregar -->
+
+<div id="modaladd" class="modal">
+    <div class="modal-content">
+        <h4>Agregar nuevo asociado</h4>
+        <form class="login-form" action="/associates/add" method="POST">
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <input id="new_username" type="text" name="name">
+                    <label for="new_username" class="center-align">Nombre</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <textarea id="new_textarea1" class="materialize-textarea" name="lastName"></textarea>
+                    <label for="new_textarea1">Apellido</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <textarea id="new_textarea2" class="materialize-textarea" name="state"></textarea>
+                    <label for="new_textarea2">Estado</label>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s4 offset-s5 center-align">
+                    <button type="submit"
+                        class="btn waves-effect waves-light border-round gradient-45deg-purple-amber gradient-shadow white-text shadow col s6">Agregar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+    </div>
+</div>
+
+<!-- Script para inicializar los modales -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+
+        var modalTriggers = document.querySelectorAll('.modal-trigger');
+        modalTriggers.forEach(function (trigger) {
+            trigger.addEventListener('click', function () {
+                var targetModalId = trigger.getAttribute('href').slice(1); // Remove the '#' from the href
+                var modal = document.getElementById(targetModalId);
+                M.Modal.getInstance(modal).open();
+            });
+        });
+    });
+</script>

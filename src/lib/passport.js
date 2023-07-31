@@ -10,14 +10,13 @@ passport.use('local.signin', new localStrategy({
     passReqToCallback: true
 }, async (req, username, password, done) => {
     console.log(req.body)
-    const rows = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+    const rows = await pool.query('SELECT * FROM tbl_users WHERE USE_CUSERNAME = ?', [username]);
     console.log(rows);
     if(rows.length > 0){
-        console.log('im here');
         const user = rows[0];
-        const validPassword = await helpers.matchPassword(password, user.password);
+        const validPassword = await helpers.matchPassword(password, user.USE_CPASSWORD);
         if(validPassword){
-            done(null, user, req.flash('success','Welcome' + user.username));
+            done(null, user, req.flash('success','Welcome' + user.USE_CUSERNAME));
         } else {
             done(null, false, req.flash('message','Incorrect password'));
         }
@@ -31,24 +30,28 @@ passport.use('local.signup', new localStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, username, password, done) => {
-    const { fullname } = req.body;
+    const { name, lastName, document } = req.body;
     const newUser = {
-        username,
-        password,
-        fullname
+        USE_CNAME: name,
+        USE_CLAST_NAME: lastName,
+        USE_CDOCUMENT: document,
+        USE_CUSERNAME: username,
+        USE_CPASSWORD: password        
     };
-    newUser.password = await helpers.encryptPassword(password);
-    const result = await pool.query('INSERT INTO users SET ?', [newUser]);
-    newUser.id = result.insertId;
+    newUser.USE_CPASSWORD = await helpers.encryptPassword(password);
+    console.log("hola00");
+    console.log(newUser);
+    const result = await pool.query('INSERT INTO tbl_users SET ?', [newUser]);
+    newUser.PKUSE_NCODIGO = result.insertId;
     return done(null, newUser);
 
 }));
 
 passport.serializeUser((usr, done) => {
-    done(null, usr.id);
+    done(null, usr.PKUSE_NCODIGO);
 });
 
 passport.deserializeUser(async (id, done) => {
-    const rows = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    const rows = await pool.query('SELECT * FROM tbl_users WHERE PKUSE_NCODIGO = ?', [id]);
     done(null, rows[0]);
 });

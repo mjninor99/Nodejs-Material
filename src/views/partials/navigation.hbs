@@ -1,58 +1,51 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <div class="container-fluid d-flex">
-      <a class="navbar-brand" href="/">Favorites Links</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          {{#if user}}
-          <li class="nav-item ">
-            <a href="/profile" class="nav-link">Profile</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Associates
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/associates">All associates</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/associates/add">Add an associated</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Links
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/links">All links</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/links/add">Add a link</a></li>
-            </ul>
-          </li>
-          
-          <li class="nav-item ">
-            <a href="/logout" class="nav-link">Logout</a>
-          </li>
-          {{else}}
-          <li class="nav-item ">
-            <a href="/signin" class="nav-link">SignIn</a>
-          </li>
-          <li class="nav-item ">
-            <a href="/signup" class="nav-link">SignUp</a>
-          </li>
-          {{/if}}
-        </ul>
-      </div>
-    </div>
-  </div>
+<!-- BEGIN: SideNav-->
+{{#unless user}}
+<div class="navbar navbar-fixed">
+      <nav
+            class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
 
-</nav>
+            <a href="#" class="brand-logo">Associados</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  {{!-- <li><a href="/index">Inicio</a></li> --}}
+                  <li><a href="/signin">Iniciar sesión</a></li>
+                  <li><a href="/signup">Registrarse</a></li>
+            </ul>
+      </nav>
+</div>
+{{/unless}}
+{{#if user}}
+<aside class="sidenav-main nav-expanded nav-lock sidenav-dark sidenav-active-rounded">
+      <div class="brand-sidebar">
+            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down "
+                              src="../../../app-assets/images/logo/materialize-logo.png" alt="materialize logo" /><img
+                              class="show-on-medium-and-down hide-on-med-and-up"
+                              src="../../../app-assets/images/logo/materialize-logo-color.png"
+                              alt="materialize logo" /><span
+                              class="logo-text hide-on-med-and-down">Associados</span></a></h1>
+      </div>
+      <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
+            data-menu="menu-navigation" data-collapsible="accordion">
+            <li class="navigation-header"><a class="navigation-header-text">Applications</a><i
+                        class="navigation-header-icon material-icons">more_horiz</i>
+            </li>
+            <li class="bold"><a class="waves-effect waves-cyan " href="/profile"><i class="material-icons">face</i><span
+                              class="menu-title" data-i18n="Chat">Perfil</span></a>
+            </li>
+            <li class="bold"><a class="waves-effect waves-cyan " href="/sites/list"><i
+                              class="material-icons">location_on</i><span class="menu-title"
+                              data-i18n="Chat">Sitios</span></a>
+            </li>
+            <li class="bold"><a class="waves-effect waves-cyan " href="/associates/list"><i
+                              class="material-icons">group</i><span class="menu-title"
+                              data-i18n="ToDo">Associados</span></a>
+            </li>
+            <li class="bold"><a class="waves-effect waves-cyan " href="/logout"><i
+                              class="material-icons">keyboard_tab</i><span class="menu-title" data-i18n="Kanban">Cerrar
+                              Sesión</span></a>
+      </ul>
+      <div class="navigation-background"></div><a
+            class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"
+            href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
+</aside>
+{{/if}}
+<!-- END: SideNav-->

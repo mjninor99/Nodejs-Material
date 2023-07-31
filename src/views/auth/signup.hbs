@@ -1,29 +1,59 @@
-<div class="container p-4">
+<body class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu preload-transitions 1-column register-bg   blank-page blank-page" data-open="click" data-menu="vertical-dark-menu" data-col="1-column">
     <div class="row">
-        <div class="col-md-4 mx-auto">
-            <div class="card text-center">
-                <div class="card-header">
-                    <h3>SignUp</h3>
-                </div>
-                <div class="card-body">
-                    <form action="/signup" method="POST">
-                        <div class="form-group mb-3">
-                            <input type="text" name="fullname" placeholder="Full name" class="form-control" autofocus>
-                        </div>
-                        <div class="form-group mb-3">
-                            <input type="text" name="username" placeholder="Username" class="form-control">
-                        </div>
-                        <div class="form-group mb-3">
-                            <input type="password" name="password" placeholder="Password" class="form-control" autofocus>
-                        </div>
-                        <div class="form-group mb-3">
-                            <button class="btn btn-success w-100">
-                                SignUp
-                            </button>
-                        </div>
-                    </form>
+        <div class="col s12">
+            <div class="container">
+                <div id="register-page" class="row">
+                    <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 register-card bg-opacity-8">
+                        <form class="login-form" action="/signup" method="POST">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <h5 class="ml-4">Registrarse</h5>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <input id="username" type="text" name="name">
+                                    <label for="username" class="center-align">Nombre</label>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <input id="username" type="text" name="lastName">
+                                    <label for="username" class="center-align">Apellido</label>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <input id="username" type="text" name="document">
+                                    <label for="username" class="center-align">Documento</label>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <input id="username" type="text" name="username">
+                                    <label for="username" class="center-align">Usuario</label>
+                                </div>
+                            </div>
+                            <div class="row margin">
+                                <div class="input-field col s12">
+                                    <input id="password-again" type="password" name="password">
+                                    <label for="password-again">Contraseña</label>
+                                </div>
+                            </div>
+                            <div class="row center">
+                                <div class="input-field col s9 offset-s4">
+                                    <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-indigo-purple shadow col s6">Registrarse</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p class="margin medium-small"><a href="/signin">¿Ya tienes una cuenta?</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <div class="content-overlay"></div>
         </div>
     </div>
-</div>
