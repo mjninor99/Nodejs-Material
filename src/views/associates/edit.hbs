@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="container">
-                            <div id="register-page" class="row">
+                            <div id="edit-page" class="row">
                                 <div
                                     class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 register-card bg-opacity-8">
                                     <form class="login-form" action="/associates/edit/{{associated.PKASS_NCODIGO}}" method="POST">
@@ -32,7 +32,7 @@
                                                 <select name="state">
                                                     <option selected>{{associated.ASS_CESTADO}}</option>
                                                     <option value="ACTIVO">ACTIVO</option>
-                                                    <option value="DESACTIVAR">DESACTIVAR</option>
+                                                    <option value="DESACTIVAR">INACTIVO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -54,3 +54,9 @@
         </div>
     </div>
 </div>
+
+<style>
+  .form-container {
+    margin-top: 100vh;
+  }
+</style>
